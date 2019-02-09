@@ -36,11 +36,6 @@ capture_count = 0;
 % GUI
 hWindow = figure();
 set(hWindow, 'NumberTitle', 'off', 'name', '4DOF manipulator');
-%{
-myPosition = get(hWindow, 'Position');
-myPosition(3:4) = [1024 768];
-%}
-%myPosition = [0 0 1200 900];
 myPosition = [0 0 1280 768];
 set(hWindow, 'Position', myPosition);
 
@@ -114,9 +109,3 @@ for i = 1:4
 end
 
 kinema_fk;
-
-%{
-function next_count = capture(count)
-  next_count = count + 1;
-end
-%}

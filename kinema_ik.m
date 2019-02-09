@@ -5,25 +5,6 @@ y = get(hY, 'value');
 z = get(hZ, 'value');
 alpha = get(hAlpha, 'value');
 
-%{
-% old Octeve ver code
-get_theta1 = inline('atan2(-x, y)');
-get_x_dash = inline('sqrt(x^2 + y^2)');
-get_p_dash = inline('[(x_dash - l3*cos(alpha)), (z - l3*sin(alpha))]', 'x_dash, z, l3, alpha');
-get_theta2 = inline('atan2(z_dash, x_ddash) - atan2(sqrt(1 - ((x_ddash^2 + z_dash^2 + l1^2 - l2^2) / (2*l1*sqrt(x_ddash^2 + z_dash^2)))^2), (x_ddash^2 + z_dash^2 + l1^2 - l2^2) / (2*l1*sqrt(x_ddash^2 + z_dash^2)))',
-		    'l1, l2, x_ddash, z_dash');
-get_theta3 = inline('atan2(sqrt(1 - ((x_ddash^2 + z_dash^2 - l1^2 - l2^2) / (2*l1*l2))^2), (x_ddash^2 + z_dash^2 - l1^2 - l2^2) / (2*l1*l2))',
-		    'l1, l2, x_ddash, z_dash');
-get_theta4 = inline('alpha - theta2 - theta3',
-		    'alpha, theta2, theta3');
-
-th1 = get_theta1(x, y); set(hTh1, 'value', th1);
-p_dash = get_p_dash(get_x_dash(x, y), z, l3, alpha);
-th2 = get_theta2(l1, l2, p_dash(1), p_dash(2));
-th3 = get_theta3(l1, l2, p_dash(1), p_dash(2));
-th4 = get_theta4(alpha, th2, th3);
-%}
-
 last_th1 = th1;
 th1 = ik_get_theta1(x, y);
 [x_ddash, z_dash] = ik_get_p_dash(ik_get_x_dash(x, y), z, l3, alpha);
